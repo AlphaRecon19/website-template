@@ -1,6 +1,6 @@
 website-template
 =================
-A template to grap and start working on
+A template to grab and start working on
 
 ##Librarys used
 * [Smarty Template Engine](www.smarty.net)
