@@ -1,0 +1,7 @@
+/* Place styles for desktop views */
+.show-mobile-only{
+  display: none;
+}
+.show-desktop-only{
+  display: inline-block;
+}

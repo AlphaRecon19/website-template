@@ -1,0 +1,7 @@
+/* Place styles for table views in the media query */
+@media screen and (max-width: 992px) {
+  .show-desktop-only{
+    display: none !important;
+  }
+  
+}
