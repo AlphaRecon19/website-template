@@ -3,7 +3,7 @@
     </div>
       <footer class="footer">
         <div class="container">
-          <p class="text-center copy-text">2015 ©{$_settings_NAME} | Designed & Hosted by: <a href="https://koolserve.uk" class="nostyle" target="_blank">KoolServe</a></p>
+          <p class="text-center copy-text">2015 ©{$_settings_NAME} | Designed & Hosted by <a href="https://koolserve.uk" class="nostyle" target="_blank">KoolServe</a></p>
         </div>
       </footer>
 
