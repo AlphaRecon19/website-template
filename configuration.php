@@ -1,7 +1,7 @@
 <?php
 /*
  * @link https://github.com/AlphaRecon19/website-template
- * @version    0.0.1
+ * @version    0.0.2
  */
     /* Stop this from being a memory hog */
     ini_set('memory_limit','8M');
