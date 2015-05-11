@@ -3,7 +3,7 @@ website-template
 A template to grab and start working on
 
 ##Librarys used
-* [Smarty Template Engine](www.smarty.net)
+* [Smarty Template Engine](http://www.smarty.net)
 
 ##How to use
 Edit index.php with the routes to the templates and then place the linked templates in the `/templates` directory
