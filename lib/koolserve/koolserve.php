@@ -1,95 +1,103 @@
 <?php
+/* koolserve
+ *
+ * Koolserve bootstrap php class
+ *
+ * @link https://github.com/AlphaRecon19/website-template
+ * 
+ * @author chris@koolserve.uk
+ * 
+ * @version    0.0.1
+ */
 class koolserve {
-    public static function smartysetup(){
+    public static function init() {
+        self::setupenv();
+        self::checkdomain();
+        self::checkprotocol();
+        self::smartysetup();
+    }
+    
+    /* Make sure that this is the correct domain */
+    private static function checkdomain(){
+        global $_settings;
+        if($_SERVER['HTTP_HOST'] !== $_settings['HOSTNAME']){
+            header('location: '. $_settings['HTTP_PROTOCOL'] . $_settings['HOSTNAME'] . $_SERVER["REQUEST_URI"]);
+        }
+    }
+    
+    /* Make sure that this is the protocol we should be using */
+    private static function checkprotocol(){
+        global $_settings;
+        $a = $_SERVER['REQUEST_SCHEME'];
+        /*Clodflare*/
+        if(isset($_SERVER["HTTP_X_FORWARDED_PROTO"])){
+            $a = $_SERVER['HTTP_X_FORWARDED_PROTO'];
+        }
+        if($a. '://' !== $_settings['HTTP_PROTOCOL'] && $_settings['ENFORCE_HTTP_PROTOCOL'] == 1){
+            header('location: '. $_settings['HTTP_PROTOCOL'] . $_settings['HOSTNAME'] . $_SERVER["REQUEST_URI"]);
+        }
+    }
+    
+    /* Configure the environment */
+    private static function setupenv(){
+        global $_settings;
+        if(!isset($_settings['ENVIRONMENT'])){
+            $_settings['ENVIRONMENT'] = 'live';
+            echo "<!-- Please set the environment value in configuration.php file -->";
+        }
+        switch($_settings['ENVIRONMENT']){
+            case 'dev':
+                if($_settings['SMARTY']['auto'] == true){
+                    $_settings['SMARTY']['force_compile'] = true;
+                    $_settings['SMARTY']['debugging'] = false;
+                    $_settings['SMARTY']['caching'] = false;
+                    $_settings['SMARTY']['cache_lifetime'] = false;
+                }
+                error_reporting(E_ALL);
+                ini_set('display_errors', 1);
+            break;
+            case 'staging':
+                if($_settings['SMARTY']['auto'] == true){
+                    $_settings['SMARTY']['force_compile'] = true;
+                    $_settings['SMARTY']['debugging'] = false;
+                    $_settings['SMARTY']['caching'] = false;
+                    $_settings['SMARTY']['cache_lifetime'] = 60;
+                }
+                error_reporting(E_ALL & ~E_NOTICE);
+                ini_set('display_errors', 1);
+            break;
+            case 'live':
+                if($_settings['SMARTY']['auto'] == true){
+                    $_settings['SMARTY']['force_compile'] = true;
+                    $_settings['SMARTY']['debugging'] = false;
+                    $_settings['SMARTY']['caching'] = false;
+                    $_settings['SMARTY']['cache_lifetime'] = 60;
+                }
+                error_reporting(0);
+                ini_set('display_errors', 0);
+            break;
+            default:
+                die('Unknown environment set - ' . $_settings['ENVIRONMENT']);
+            break;
+        }
+    }
+    
+    /* Setup smarty */
+    private static function smartysetup(){
         global $_settings, $smarty;
         foreach($_settings as $k=>$v){
             $smarty->assign("_settings_" . $k, $v, true);
         }
-        /*
-         * This is set to a dev enviorment by default
-         * More info: http://www.smarty.net/docs/en/
-        */
-        $smarty->force_compile = true;
-        $smarty->debugging = false;
-        $smarty->caching = false;
-        $smarty->cache_lifetime = 1;
+        $smarty->force_compile = $_settings['SMARTY']['force_compile'];
+        $smarty->debugging = $_settings['SMARTY']['debugging'];
+        $smarty->caching = $_settings['SMARTY']['caching'];
+        $smarty->cache_lifetime = $_settings['SMARTY']['cache_lifetime'];
     }
-
+    
+    /* Run the 404 ad */
     public static function error($e = 404){
         global $_settings;
         header('location: ' . $_settings['HTTP_PROTOCOL'] . $_settings['HOSTNAME'] . $_settings['DIR'] . $e);
         exit();
-    }
-
-    public function render_select($array, $searchfor, $id = null, $class = "form-control chzn-select"){
-        $buffer = '<select id="'.$id.'" class="'.$class.'"><option value="" selected="selected" disabled="disabled">Please Select..</option>';
-        foreach($array as $key => $value){
-            if($searchfor == $key){
-                $buffer .= '<option value="'.$key.'" selected>'.$value.'</option>';
-            }else{
-                $buffer .= '<option value="'.$key.'">'.$value.'</option>';
-            }
-        }
-        $buffer .= '</select>';
-        return $buffer;
-    }
-
-    public function returnsalt($password){
-        $return['salt'] = base64_encode(md5(base64_encode((rand(1, rand(1, 9999999999) * rand(1, rand(1, 9999999999)))))));
-        $return['hash'] = hash('sha512', $return['salt'] . $password);
-        return $return;
-    }
-    
-    /*createhash
-     *
-     *Create a uniqe hash that is very uniqe
-     *
-     *@return string The uniqe hash
-     */
-    public static function createhash(){
-        return hash('sha1', base64_encode(md5(microtime())));
-    }
-
-    /*returnip
-     *
-     *Return the users ip, even is they are behind a proxy
-     *
-     *@return string Users ip
-     */
-    public static function returnip(){
-        if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-            /* The default way to get the IP */
-            return $_SERVER['HTTP_CLIENT_IP'];
-        }elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            /* User is behind a proxy? */
-            return $_SERVER['HTTP_X_FORWARDED_FOR'];
-        }else{
-            /* Return this as a last restort */
-            return $_SERVER['REMOTE_ADDR'];
-        }
-    }
-
-    /*minify
-     *@link http://stackoverflow.com/a/6225706
-     *
-     *Minify the supplied html code
-     *
-     *@param string $buffer The html code to be minified
-     *
-     *@return string The minified code
-     */
-    public static function minify($buffer) {
-        $search = array(
-            '/\>[^\S ]+/s',  // strip whitespaces after tags, except space
-            '/[^\S ]+\</s',  // strip whitespaces before tags, except space
-            '/(\s)+/s'       // shorten multiple whitespace sequences
-        );
-        $replace = array(
-            '>',
-            '<',
-            '\\1'
-        );
-        $buffer = preg_replace($search, $replace, $buffer);
-        return $buffer;
     }
 }

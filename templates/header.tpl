@@ -10,11 +10,13 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{$_settings_ASSETS_URL}css/main.css">
-
+    {if $_settings_ENVIRONMENT != 'dev'}
+    <link rel="stylesheet" href="{php}echo cdn::asset_url("css/main.min.css");{/php}">{else}<link rel="stylesheet" href="{php}echo cdn::asset_url("css/main.css");{/php}">
+    <link rel="stylesheet" href="{php}echo cdn::asset_url("css/desktop.css");{/php}">
+    <link rel="stylesheet" href="{php}echo cdn::asset_url("css/992.css");{/php}">
+    <link rel="stylesheet" href="{php}echo cdn::asset_url("css/768.css");{/php}">{/if}
 </head>
-
 {include file="navbar.tpl"}
-    <!-- Begin page content -->
+<!-- Begin page content -->
     <div class="container container-hidden">
 <!-- EOF header.tpl  -->
