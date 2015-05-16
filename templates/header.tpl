@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{php}echo cdn::asset_url("css/992.css");{/php}">
     <link rel="stylesheet" href="{php}echo cdn::asset_url("css/768.css");{/php}">{/if}
 </head>
+<body>
 {include file="navbar.tpl"}
 <!-- Begin page content -->
     <div class="container container-hidden">
