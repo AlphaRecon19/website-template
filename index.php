@@ -4,7 +4,7 @@ include('configuration.php');
   @$thequery = explode('/',$query);
   
   if(!isset($_GET['q'])){$thequery[0] = '';}
-  if($_SERVER["REQUEST_URI"] === '/'){$thequery[0] = 'home';}
+  if($_SERVER["REQUEST_URI"] === $_settings['DIR']){$thequery[0] = 'home';}
   
 switch ($thequery[0]) {
 /* /home or / */
