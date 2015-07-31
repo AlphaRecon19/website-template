@@ -19,6 +19,7 @@ class CDN{
     public function SetAssetURLs()
     {
         $a = $this->ks->Config['Assets'];
+        $b = [];
         foreach($a as $k => $v){
             $b[$v] = $this->AssetURL($v);
         }
