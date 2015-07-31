@@ -1,9 +1,6 @@
 cache/*
 templates_c/*
 
-#Add after setup
-#configuration.php
-
 !cache/
 !templates_c/
 !.gitignore

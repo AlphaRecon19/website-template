@@ -1,0 +1,35 @@
+/*Rename this to main.json*/
+{
+    "Server":{
+        "Config":{
+            "Enviroment": 0,
+            "URL":{
+               "Secure": 0
+            },
+            "CDN":{
+                "Enable": 0,
+                "URL": "https://cdn.koolserve.uk//"
+            }
+        }
+    },
+    
+    "URL":{
+        "Full":"http://127.0.0.1/git/website-template/",
+        "Assets": "assets/"
+    },
+    
+    "Assets":[
+        "css/style.css",
+        "js/koolserve.js"
+    ],
+    
+    "Smarty":{
+        "Config":{
+            "Auto":             false,
+            "ForceCompile":     true,
+            "Debugging":        false,
+            "Caching":          false,
+            "CacheLifetime":    false
+        }
+    }
+}
