@@ -12,6 +12,7 @@
 class Koolserve{
     
     public $Smarty = '';
+    private $ksdir = 'lib/Koolserve/';
     
     function __construct($a)
     {
@@ -35,7 +36,7 @@ class Koolserve{
     }
     
     private function LoadClasses(){
-        $files = scandir($this->RootDIR . 'lib/koolserve/');
+        $files = scandir($this->RootDIR . $this->ksdir);
         foreach($files as $file) {
             if($file !== '.' && $file !== '..' && $file != 'Koolserve.php'){
                 $n = str_replace('.php', '', $file);
@@ -74,7 +75,7 @@ class Koolserve{
     }
     
     function KoolserveAutoload($c){
-        @include_once($this->RootDIR . 'lib/koolserve/' . $c . '.php');
+        @include_once($this->RootDIR . $this->ksdir . $c . '.php');
         if( !class_exists( $c, false ) ){
            die( 'Class '. $c . ' has not been loaded yet' );
         }
