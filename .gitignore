@@ -1,6 +1,11 @@
+#Ignore all caches
 cache/*
 templates_c/*
 
+#Ignore files edited by nano
+*.*~
+
+#Don't ignore these files / folders
 !cache/
 !templates_c/
 !.gitignore
