@@ -1,9 +1,15 @@
-#Ignore all caches
+#Ignore all the caches
 cache/*
 templates_c/*
 
-#Ignore files edited by nano
+#Ignore files created by nano
 *.*~
+*.*.save
+
+#Ignore the FontAwesome fonts as these will be inported
+assets/fonts/FontAwesome*
+assets/fonts/fontawesome* 
+
 
 #Don't ignore these files / folders
 !cache/
