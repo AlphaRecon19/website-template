@@ -13,7 +13,7 @@ fi
 if which yui-compressor >/dev/null; then
     echo "yui-compressor is installed and available"
 else
-    echo "I require lessc but it's not installed. Install it with 'sudo apt-get install yui-compressor'" >&2; exit 1;
+    echo "I require yui-compressor but it's not installed. Install it with 'sudo apt-get install yui-compressor'" >&2; exit 1;
 fi
 
 echo "Compiling less files ..."
