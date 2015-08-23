@@ -17,7 +17,7 @@ class Koolserve{
     function __construct($a)
     {
         // Get the current working dir
-        $this->RootDIR = $a;
+        $this->RootDIR = $a . '/';
         
         // Load the config file
         $this->LoadConfigFile();

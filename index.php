@@ -1,4 +1,4 @@
 <?php
 include('lib/Koolserve/Koolserve.php');
-$ks = new Koolserve('/home/chris/git/website-template/');
+$ks = new Koolserve(getcwd());
 exit();
