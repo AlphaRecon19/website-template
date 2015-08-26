@@ -4,3 +4,6 @@
 [submodule "submodules/Font-Awesome"]
 	path = submodules/Font-Awesome
 	url = git@github.com:Font-Awesome.git
+[submodule "submodules/elegant-icons"]
+	path = submodules/elegant-icons
+	url = git@github.com:heimrichhannot/elegant-icons.git

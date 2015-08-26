@@ -8,6 +8,8 @@ progress.
  - [LESS](http://lesscss.org)
  - [Bootstrap](http://getbootstrap.com)
  - [Font Awesome](https://fortawesome.github.io/Font-Awesome/)
+ - [Elegant Icon Font](http://www.elegantthemes.com/blog/resources/elegant-icon-font)
+-> [Less Port](https://github.com/heimrichhannot/elegant-icons)
 
 ## Configuration
 The main configuration file is located in the ~/config folder and should be
