@@ -10,6 +10,9 @@ templates_c/*
 assets/fonts/FontAwesome*
 assets/fonts/fontawesome* 
 
+#Ignore the Elegant Icons fonts as these will be inported
+assets/fonts/elegant-icons*
+
 
 #Don't ignore these files / folders
 !cache/
